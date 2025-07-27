@@ -1,7 +1,7 @@
 "use client"
 import { ImageComponents } from "../imageComponents/ImageComponents"
 import { StaticImageData } from "next/image";
-export function CardComponents({
+export function CardComponentsSellers({
     imageSrc,
     title,
     description,
@@ -16,7 +16,7 @@ export function CardComponents({
     };
 }) {
     return (
-        <div className="max-w-[400px] min-h-[400px] flex flex-col gap-2 bg-white rounded-xl border-2 border-gray-200 p-2 hover:cursor-pointer hover:scale-105 transition-all duration-300">
+        <div className="max-w-[300px] min-h-[300px] flex flex-col gap-2 bg-white rounded-xl border-2 border-gray-200 p-2 hover:cursor-pointer hover:scale-105 transition-all duration-300">
             <div className="w-full h-64">
                 <ImageComponents src={imageSrc.toString()} alt={title ?? 'image'} width={200} className="w-full h-full aspect-[1/1] object-cover rounded-xl" />
             </div>

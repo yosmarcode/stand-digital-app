@@ -7,6 +7,8 @@ import { sessionStatuStorage } from "@/constants";
 import { AccountComponents } from "@/components/notifications/account/AccountComponents";
 import { Suspense } from "react";
 import { LoadingComponents } from "@/components/loading/LoadingComponent";
+import Footer from "@/components/Footers/Footer";
+import { NotistackComponents } from "@/components/notifications/notistack/NotistackComponents";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +37,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense fallback={<LoadingComponents />}>
-          {!sessionStatuStorage && (<AccountComponents />)}
-          <NavBarComponents />
+          <NotistackComponents>
+            {!sessionStatuStorage && (<AccountComponents />)}
+            <NavBarComponents />
 
-          <main className="flex flex-col">
-            {children}
-          </main>
+            <main className="flex flex-col">
+              {children}
+            </main>
+            <Footer />
+          </NotistackComponents>
         </Suspense>
       </body>
     </html >

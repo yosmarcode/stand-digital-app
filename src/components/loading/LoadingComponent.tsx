@@ -1,8 +1,9 @@
 'use client'
-import { Config } from "@/constants/Config/Config";
+
+import { Spinner } from "react-bootstrap"
 
 export function LoadingComponents() {
     return (
-        <p style={{ color: Config.COLOR.COLOR_TEXT_BLACK }}>Cargando...</p>
+        <Spinner animation="border" variant="primary" />
     )
 }

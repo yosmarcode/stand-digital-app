@@ -13,7 +13,7 @@ export function AccountComponents() {
   return (
     <>
       {isOpen && (
-        <div className="fixed bottom-0 end-0 z-[60] sm:max-w-xl w-full mx-auto p-8 bg-white rounded-2xl gap-4">
+        <div className="fixed bottom-0 end-0 z-[60] sm:max-w-[400px] w-full mx-auto p-8 bg-white rounded-2xl gap-4">
           <div className=" float-end pt-1 cursor-pointer" onClick={handOpen}>
             <ImageComponents src={CloseCircle} alt="" className="size-16" />
           </div>

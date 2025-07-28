@@ -13,11 +13,11 @@ export function AccountComponents() {
   return (
     <>
       {isOpen && (
-        <div className=" lg:flex lg:flex-row flex-col bg-white border-2 rounded-md p-10 w-full flex justify-around fixed-bottom shadow-lg shadow-blue-500">
+        <div className="fixed bottom-0 end-0 z-[60] sm:max-w-[400px] w-full mx-auto p-8 bg-white rounded-2xl gap-4">
           <div className=" float-end pt-1 cursor-pointer" onClick={handOpen}>
             <ImageComponents src={CloseCircle} alt="" className="size-16" />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-4">
             <span className="text-2xl text-black ">
               ¿No tienes cuenta?
             </span>
@@ -25,12 +25,13 @@ export function AccountComponents() {
               Es necesario crear cuenta para poder comprar y calificar productos
               y tiendas
             </span>
-
           </div>
+          <div className="flex items-center justify-start p-2">
 
-          <span className="bg-blue-500 hover:bg-blue-600  text-white rounded-3xl text-xl w-60 h-12 p-2 text-center hover:cursor-pointer ">
-            ¡Create una!
-          </span>
+            <span className="bg-blue-500 hover:bg-blue-600  text-white rounded-3xl text-xl w-60 h-12 p-2 text-center hover:cursor-pointer ">
+              ¡Crear una!
+            </span>
+          </div>
         </div>
       )}
     </>

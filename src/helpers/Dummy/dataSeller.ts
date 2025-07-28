@@ -62,6 +62,42 @@ export const dataSeller: IDataSeller[] = [
     urlLogo: '/LOGO-OTAKU-CRAZY.png',
     tags: ['Pagina Web', 'Servicios Informaticos', 'Base datos', 'Cloud']
   },
+  {
+    id: 5,
+    qualification: 4.5,
+    nameSeller: "SQUARESCL SPA",
+    description: "Accesorios, Lentes de sol y Ropa deportiva",
+    category: {
+      id: 1,
+      description: "Ropa y Vestuarios",
+    },
+    urlLogo: '/squares-logo.png',
+    tags: ['ropa', 'vestuario', 'accesorios', 'lentes de sol', 'ropa deportiva']
+  },
+  {
+    id: 6,
+    qualification: 4.5,
+    nameSeller: "SQUARESCL SPA",
+    description: "Accesorios, Lentes de sol y Ropa deportiva",
+    category: {
+      id: 1,
+      description: "Ropa y Vestuarios",
+    },
+    urlLogo: '/squares-logo.png',
+    tags: ['ropa', 'vestuario', 'accesorios', 'lentes de sol', 'ropa deportiva']
+  },
+  {
+    id: 7,
+    qualification: 4,
+    nameSeller: "SILPATY BOUTIQUE",
+    description: "Ropa de Mujer",
+    category: {
+      id: 1,
+      description: "Ropa y Vestuarios",
+    },
+    urlLogo: '/silpaty-boutique.png',
+    tags: ['ropa', 'vestuario', 'accesorios', 'lentes de sol', 'ropa deportiva']
+  },
 
 ]
 

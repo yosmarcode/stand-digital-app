@@ -2,17 +2,21 @@ import { LoadingComponents } from "@/components/loading/LoadingComponent";
 import CardComponentsV2 from "@/components/ui/CardComponentsV2";
 import { Suspense } from "react";
 import MenuProfile from "./components/Menu/MenuProfile";
+import ToBacks from "@/components/ToBack/ToBacks";
+import userStore from "@/guards/userstore";
 
 export default function MainProfile() {
+    const user = userStore?.user
+
     return (
         <Suspense fallback={<LoadingComponents />}>
-            <div className="grid grid-cols-2 pt-24 gap-x-2 gap-y-4">
-                <div className="col-span-1">
-                    <CardComponentsV2 title="Menú" childreComponents={<MenuProfile />} />
+
+            <div className="flex flex-col gap-y-4 h-screen w-full lg:w-[60rem] mx-auto lg:pt-36 pt-12">
+                <ToBacks />
+                <div className="w-full">
+                    <CardComponentsV2 title="" childreComponents={<MenuProfile user={user} />} />
                 </div>
-                <div className="col-span-1">
-                    <CardComponentsV2 title="Perfil" childreComponents={<h1>Perfil</h1>} />
-                </div>
+
             </div>
         </Suspense>
     )

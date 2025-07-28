@@ -3,10 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./globals.css";
 import NavBarComponents from "@/components/NavBar/NavBarComponents";
-import { sessionStatuStorage } from "@/constants";
 import { AccountComponents } from "@/components/notifications/account/AccountComponents";
 import { Suspense } from "react";
 import { LoadingComponents } from "@/components/loading/LoadingComponent";
+import Footer from "@/components/Footers/Footer";
+import { NotistackComponents } from "@/components/notifications/notistack/NotistackComponents";
+import userStore from "@/guards/userstore";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,12 +37,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Suspense fallback={<LoadingComponents />}>
-          {!sessionStatuStorage && (<AccountComponents />)}
-          <NavBarComponents />
+          <NotistackComponents>
+            {userStore && (<AccountComponents />)}
+            <NavBarComponents />
 
-          <main className="flex flex-col">
-            {children}
-          </main>
+            <main className="flex flex-col">
+              {children}
+            </main>
+            <Footer />
+          </NotistackComponents>
         </Suspense>
       </body>
     </html >

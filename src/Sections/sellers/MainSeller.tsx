@@ -6,7 +6,7 @@ export function SellerAllComponents() {
     const urlPath = '/client';
     return (
         <Suspense fallback={<LoadingComponents />}>
-            <div className="flex flex-col gap-4 pt-12 mb-8">
+            <div className="flex flex-col gap-4 pt-12 mb-8 p-6">
                 <h1 className="text-2xl font-bold text-black">Tiendas</h1>
                 <div className="flex flex-col items-center justify-center gap-4">
 

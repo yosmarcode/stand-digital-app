@@ -25,12 +25,12 @@ export default function MainAuth() {
                 <div>
                     <button type="button" className='text-blue-500 hover:text-blue-600 hover:cursor-pointer rounded-md p-1 ' onClick={() => setIsOpen(true)}>¿No tienes cuentas? </button>
                 </div>
-                {JSON.stringify(sessionStatus)}
+
                 <div className="lg:p-12 p-2">
                     <FormLogin />
                 </div>
             </div>
-            <div className="w-1/2 h-full items-center justify-center bg-blue-100 lg:block hidden" />
+            <div className="w-2/2 h-full items-center justify-center bg-blue-100 lg:block hidden" />
             <ModalComponents title="Creando nueva cuenta" isOpen={isOpen} setIsOpen={setIsOpen} chiledrenBody={<FormNewUser />} chiledrenFooter={<button type="button" className='text-blue-500 hover:text-blue-600 hover:cursor-pointer rounded-md p-1 ' onClick={() => setIsOpen(false)}>Cancelar</button>} />
 
         </div>

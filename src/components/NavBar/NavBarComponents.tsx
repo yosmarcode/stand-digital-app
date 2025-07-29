@@ -9,8 +9,8 @@ const NavBarComponents = () => {
         window.location.href = '/profile'
     }
     return (
-        <div className='fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-blue-950 z-50'>
-            <span className='text-white font-bold'>STAND DIGITAL</span>
+        <div className='fixed top-0 left-0 right-0 flex justify-between items-center p-4 bg-sky-800 z-50'>
+            <span className='text-white font-bold'>{process.env.NEXT_PUBLIC_TITLE_PROJECT}</span>
             {userStore ? <ListMenuSesion /> : <Button variant="outline-primary" size="lg" onClick={handClick}>Iniciar Sesión</Button>}
         </div>
     )

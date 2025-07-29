@@ -1,7 +1,7 @@
 'use client'
 import { LoadingComponents } from '@/components/loading/LoadingComponent'
 import { validateEmail } from '@/helpers/ValidateEmail/validateEmail'
-import { supabase } from '@/instegrations/supabase'
+import { webApiServices } from '@/services/webApiServices'
 import { enqueueSnackbar } from 'notistack'
 import React from 'react'
 import { Form } from 'react-bootstrap'
@@ -21,10 +21,7 @@ const FormLogin = () => {
         e.preventDefault()
         setIsLoading(true)
         setIsError(false)
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email: formValue.email,
-            password: formValue.password
-        })
+        const { error } = await webApiServices.getLoginServices(formValue.email, formValue.password)
         if (error) {
             console.log(error)
             enqueueSnackbar('Error: ' + error.message, { variant: 'error' })
@@ -33,7 +30,6 @@ const FormLogin = () => {
             setIsLoading(false)
         }
         if (!error) {
-            // enqueueSnackbar('Perfil registrado correctamente', { variant: 'success' })
             setIsLoading(false)
             handleResetForm()
             setTimeout(() => {

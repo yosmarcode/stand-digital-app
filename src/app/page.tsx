@@ -16,14 +16,20 @@ export default function Home() {
   }, [sessionStatus]);
 
   return (
-    <div className="w-full">
-      <div className=" pt-22">
-        <FormFilter />
-      </div>
-      <SectionsComponents
-        childrenComponent={<SellerAllComponents />}
-        className=" bg-blue-50 flex flex-col items-center justify-center h-auto"
-        id="sellers" />
+    <div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full lg:max-w-[20%] bg-white" />
+        <div className="w-full lg:max-w-[80%]">
+          <div className="pt-22 bg-blue-50 flex flex-col items-center justify-center h-auto rounded-5">
+            <FormFilter />
+            <div>
+              <SellerAllComponents />
+            </div>
+          </div>
+
+
+        </div>
+      </div >
     </div>
   );
 }

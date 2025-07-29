@@ -3,6 +3,7 @@
 import { LoadingComponents } from '@/components/loading/LoadingComponent'
 import { validateEmail } from '@/helpers/ValidateEmail/validateEmail'
 import { supabase } from '@/instegrations/supabase'
+import { webApiServices } from '@/services/webApiServices'
 import { enqueueSnackbar } from 'notistack'
 import React from 'react'
 import { Form } from 'react-bootstrap'
@@ -46,12 +47,7 @@ const FormNewUser = () => {
     }
 
     const handleRegisterProfile = async (user_id: string) => {
-        const { error } = await supabase.from('account').insert({
-            id_user: user_id,
-            names: formValue.name + ' ' + formValue.lastName,
-            email: formValue.email,
-            active: true
-        })
+        const { error } = await webApiServices.getRegisterProfileServices(user_id, formValue.name, formValue.lastName, formValue.email)
         if (error) {
             console.log(error)
             enqueueSnackbar('Error: ' + error.message, { variant: 'error' })
@@ -60,7 +56,7 @@ const FormNewUser = () => {
             setIsLoading(false)
         }
         if (!error) {
-            // enqueueSnackbar('Perfil registrado correctamente', { variant: 'success' })
+            enqueueSnackbar('Perfil registrado correctamente', { variant: 'success' })
             setIsLoading(false)
             handleResetForm()
         }
@@ -77,16 +73,8 @@ const FormNewUser = () => {
         if (!isValid) return;
 
         try {
-            const { data, error } = await supabase.auth.signUp({
-                email: formValue.email,
-                password: formValue.password,
-                options: {
-                    data: {
-                        full_name: formValue.name + ' ' + formValue.lastName
-                    }
-                }
-            })
-            console.log('data ==>', data, error)
+            const { data, error } = await webApiServices.getNewUserServices(formValue.email, formValue.password, formValue.name, formValue.lastName)
+
             if (error) {
                 console.log(error)
                 enqueueSnackbar('Error: ' + error.message, { variant: 'error' })

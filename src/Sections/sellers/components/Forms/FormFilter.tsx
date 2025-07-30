@@ -40,7 +40,7 @@ export default function FormFilter() {
                         <Form.Control type="text" placeholder="Tienda, producto, servicio" />
                     </FloatingLabel>
                 </Col>
-                <Col xs>
+                <Col xs={2}>
                     <FloatingLabel controlId="floatingSelect-regiones" label="Regiones">
                         <Form.Select aria-label="Floating label select regiones">
                             <option>Seleccione...</option>
@@ -50,7 +50,7 @@ export default function FormFilter() {
                         </Form.Select>
                     </FloatingLabel>
                 </Col>
-                <Col xs>
+                <Col xs={2}>
                     <FloatingLabel controlId="floatingSelect-ciudades" label="Ciudades">
                         <Form.Select aria-label="Floating label select ciudades">
                             <option>Seleccione...</option>
@@ -60,7 +60,7 @@ export default function FormFilter() {
                         </Form.Select>
                     </FloatingLabel>
                 </Col>
-                <Col xs>
+                <Col xs={2}>
                     <FloatingLabel controlId="floatingSelect-categorias" label="Categorias">
                         <Form.Select aria-label="Floating label select categorias">
                             <option>Seleccione...</option>
@@ -70,7 +70,7 @@ export default function FormFilter() {
                         </Form.Select>
                     </FloatingLabel>
                 </Col>
-                <Col xs={12} sm={12} md={1} className="pt-1">
+                <Col xs={12} sm={12} md={2} className="pt-1">
                     <Button variant="outline-primary" size="lg" className="w-full" type="submit">Buscar</Button>
                 </Col>
 

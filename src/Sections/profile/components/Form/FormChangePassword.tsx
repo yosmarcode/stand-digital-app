@@ -1,6 +1,6 @@
 'use client'
+import { Box, Flex, TextField } from '@radix-ui/themes'
 import React from 'react'
-import { Form } from 'react-bootstrap'
 
 const FormChangePassword = () => {
     return (
@@ -8,22 +8,29 @@ const FormChangePassword = () => {
             <div className='pt-2'>
                 <p className='text-xl text-black'>Cambio Contraseña</p>
             </div>
-            <Form.Floating className="mb-1">
-                <Form.Control
-                    id="floatingInputCustom-password"
-                    type="password"
-                    placeholder="Password"
-                />
-                <label htmlFor="floatingInputCustom-password">Contraseña</label>
-            </Form.Floating>
-            <Form.Floating className="mb-1">
-                <Form.Control
-                    id="floatingInputCustom-password"
-                    type="password"
-                    placeholder="Password"
-                />
-                <label htmlFor="floatingInputCustom-password">Confirmar Contraseña</label>
-            </Form.Floating>
+            <Flex direction="column" gap="3">
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Contraseña Actual"
+
+                    />
+                </Box>
+
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Nueva Contraseña"
+                    />
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Confirme Contraseña"
+                    />
+                </Box>
+            </Flex>
+
         </div>
     )
 }

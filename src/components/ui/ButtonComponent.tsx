@@ -1,4 +1,4 @@
-import { Button } from '@headlessui/react'
+import { Button } from '@radix-ui/themes'
 
 const ButtonComponent = ({ title, variant, handClick }: { title: string, variant?: string, handClick?: () => void }) => {
 

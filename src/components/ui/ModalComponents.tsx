@@ -1,29 +1,36 @@
+import { Button, Dialog, Flex, Spinner } from '@radix-ui/themes'
 import React from 'react'
-import { Modal } from 'react-bootstrap'
 
-const ModalComponents = ({ title, isOpen, size, setIsOpen, chiledrenBody, chiledrenFooter }: { title?: string, isOpen: boolean, size?: "sm" | "lg" | "xl", setIsOpen: (value: boolean) => void, chiledrenBody: React.ReactNode, chiledrenFooter?: React.ReactNode }) => {
+const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModal?: string, titleButton?: string, chiledrenBody: React.ReactNode }) => {
     return (
         <div>
-            <Modal
-                show={isOpen}
-                onHide={() => setIsOpen(false)}
-                size={size || "lg"}
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            // fullscreen={isFullScreen || false}
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title id="contained-modal-title-vcenter">
-                        {title}
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {chiledrenBody}
-                </Modal.Body>
-                <Modal.Footer>
-                    {chiledrenFooter}
-                </Modal.Footer>
-            </Modal>
+            <Dialog.Root>
+                <Dialog.Trigger>
+                    <Button variant="outline">{titleButton}</Button>
+                </Dialog.Trigger>
+                <Dialog.Content className='w-[40rem]'>
+                    <Dialog.Title>
+                        {titleModal}
+                    </Dialog.Title>
+                    <Dialog.Description>
+                        {chiledrenBody}
+                    </Dialog.Description>
+
+
+
+                    <Flex gap="3" justify="end" className='pt-2'>
+                        <Dialog.Close>
+                            <Button
+                                type="submit"
+                                size="3"
+                                variant="outline">
+                                Cerrar
+                            </Button>
+                        </Dialog.Close>
+                    </Flex>
+                </Dialog.Content>
+            </Dialog.Root>
+
         </div>
     )
 }

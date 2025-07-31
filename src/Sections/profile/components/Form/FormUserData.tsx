@@ -1,58 +1,77 @@
 'use client'
-import { IUser } from '@/components/Auth/models'
+import { IUser } from '@/Sections/Auth/models'
+import { validateEmail } from '@/helpers/ValidateEmail/validateEmail'
+import { Box, Button, Spinner, TextField, Flex } from '@radix-ui/themes'
 import React from 'react'
-import { Form } from 'react-bootstrap'
 
 const FormUserData = ({ userData }: { userData: IUser | undefined }) => {
+    const [isError, setIsError] = React.useState(false)
+    const [messageError, setMessageError] = React.useState('')
+    const [formValue, setFormValue] = React.useState({
+        email: userData?.user_metadata?.email ?? '',
+        name: userData?.user_metadata?.full_name ?? '',
+        phone: userData?.phone ?? '',
+    })
+    const [isLoading, setIsLoading] = React.useState(false)
 
     return (
-        <div className='bg-blue-50 rounded-lg p-3 mt-2'>
-            <div className='pt-2'>
-                <p className='text-xl text-black'>Información de Usuario</p>
-            </div>
-            <Form.Floating className="mb-1">
-                <Form.Control
-                    id="floatingInputCustom-email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value={userData?.user_metadata.email}
-                //onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
-                //isInvalid={(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email)))}
-                />
-                {/* {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) && <Form.Control.Feedback type="invalid">
-                    <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
-                </Form.Control.Feedback>} */}
-                <label htmlFor="floatingInputCustom-email">Correo Usuario</label>
-            </Form.Floating>
-            <Form.Floating className="mb-1">
-                <Form.Control
-                    id="floatingInputCustom-full_name"
-                    type="text"
-                    placeholder="Nombre"
-                    value={userData?.user_metadata.full_name}
-                //onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
-                //isInvalid={(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email)))}
-                />
-                {/* {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) && <Form.Control.Feedback type="invalid">
-                    <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
-                </Form.Control.Feedback>} */}
-                <label htmlFor="floatingInputCustom-full_name">Nombre Usuario</label>
-            </Form.Floating>
+        <div className='bg-blue-50 rounded-xl p-3 mt-2 gap-2'>
 
-            <Form.Floating className="mb-1">
-                <Form.Control
-                    id="floatingInputCustom-phone"
-                    type="text"
-                    placeholder="1234567890"
-                    value={userData?.phone}
-                //onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
-                //isInvalid={(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email)))}
-                />
-                {/* {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) && <Form.Control.Feedback type="invalid">
-                    <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
-                </Form.Control.Feedback>} */}
-                <label htmlFor="floatingInputCustom-phone">Teléfono</label>
-            </Form.Floating>
+
+            <Flex direction="column" gap="3">
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Correo Eléctronico"
+                        value={formValue.email}
+                        onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
+                    />
+                    {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) &&
+                        <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
+                    }
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Nombre"
+                        value={formValue.name}
+                        onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
+                    />
+                    {(isError && (formValue.name.length < 1)) &&
+                        <p>Nombre es obligatorio</p>
+                    }
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Apellido"
+                        value={formValue.name}
+                        onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
+                    />
+                    {(isError && (formValue.name.length < 1)) &&
+                        <p>Apellido es obligatorio</p>
+                    }
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Teléfono"
+                        value={formValue.phone}
+                        onChange={(e) => setFormValue({ ...formValue, phone: e.target.value })}
+                    />
+                    {(isError && (formValue.phone.length < 1)) &&
+                        <p>Teléfono es obligatorio</p>
+                    }
+                </Box>
+                <div className='flex items-center justify-center pt-2'>
+                    <Button
+                        type="submit"
+                        size="3"
+                        variant="outline">
+                        {isLoading && <Spinner loading={isLoading} />} Actualizar
+                    </Button>
+                </div>
+            </Flex>
         </div>
     )
 }

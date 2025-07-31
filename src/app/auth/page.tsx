@@ -1,4 +1,4 @@
-import MainAuth from '@/components/Auth/MainAuth'
+import MainAuth from '@/Sections/Auth/MainAuth'
 import SectionsComponents from '@/Sections/SectionsComponents'
 import React from 'react'
 

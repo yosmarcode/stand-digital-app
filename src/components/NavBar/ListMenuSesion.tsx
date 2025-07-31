@@ -2,8 +2,7 @@
 import { supabase } from '@/instegrations/supabase';
 import { enqueueSnackbar } from 'notistack';
 import React from 'react'
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Button, DropdownMenu } from '@radix-ui/themes';
 import { LoadingComponents } from '../loading/LoadingComponent';
 import userStore from '@/guards/userstore'
 const ListMenuSesion = () => {
@@ -25,10 +24,21 @@ const ListMenuSesion = () => {
     return (
         <div className='flex flex-row gap-2'>
             {isLoading && <LoadingComponents />}
-            <DropdownButton id="dropdown-item-button" title={nameUser || 'Cuenta'} >
-                <Dropdown.Item as="button" onClick={() => { window.location.href = '/profile' }}>Perfil</Dropdown.Item>
-                <Dropdown.Item as="button" onClick={handsignOut}>Cerrar Sesión</Dropdown.Item>
-            </DropdownButton>
+
+            <DropdownMenu.Root>
+                <DropdownMenu.Trigger>
+                    <Button variant="solid" size="2">
+                        {nameUser}
+                        <DropdownMenu.TriggerIcon />
+                    </Button>
+                </DropdownMenu.Trigger>
+                <DropdownMenu.Content>
+                    <DropdownMenu.Item onClick={() => { window.location.href = '/profile' }}>Perfil</DropdownMenu.Item>
+                    <DropdownMenu.Item onClick={handsignOut}>Cerrar Sesión</DropdownMenu.Item>
+                </DropdownMenu.Content>
+            </DropdownMenu.Root>
+
+
         </div>
     )
 }

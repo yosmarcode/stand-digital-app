@@ -6,11 +6,10 @@ import SectionsComponents from '@/Sections/SectionsComponents'
 
 export default function PageProfile() {
     return (
-        <div className="w-full h-screen">
-
+        <div className="w-full h-auto">
             <SectionsComponents
                 childrenComponent={<MainProfile />}
-                className=" bg-blue-50 h-screen flex flex-col "
+                className=" bg-blue-50 flex flex-col mb-4 "
                 id="profile" />
         </div>
     )

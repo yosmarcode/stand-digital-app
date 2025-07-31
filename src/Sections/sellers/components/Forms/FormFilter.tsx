@@ -1,10 +1,10 @@
 'use client'
-import { Button, Col, FloatingLabel, Form } from "react-bootstrap"
 import React from "react"
 import { webApiServices } from "@/services/webApiServices"
 import { enqueueSnackbar } from "notistack"
 import { ICategory } from "../../models"
 import { LoadingComponents } from "@/components/loading/LoadingComponent"
+import { Button, Grid, Select, TextField, Box } from "@radix-ui/themes"
 
 export default function FormFilter() {
     const [listCategory, setListCategory] = React.useState<ICategory[]>([])
@@ -23,58 +23,41 @@ export default function FormFilter() {
         }
     }
     React.useEffect(() => {
+
+        //TODO: obtener lista de categorias
         getListCategory()
     }, [])
     return (
-        <div className="w-full bg-white flex items-center justify-center p-12 rounded-b-5">
+        <div className="w-full bg-white flex items-center justify-center p-4 ">
 
             {isLoading && <LoadingComponents />}
-            <Form onSubmit={(e) => e.preventDefault()} className="flex flex-col lg:flex-row lg:gap-4 gap-2 w-full">
+            <form onSubmit={(e) => e.preventDefault()} className="flex flex-col lg:flex-row lg:gap-4 gap-2 w-full">
 
-                <Col xs>
-                    <FloatingLabel
-                        controlId="floatingInput"
-                        label="Buscar"
-                        className="mb-3"
-                    >
-                        <Form.Control type="text" placeholder="Tienda, producto, servicio" />
-                    </FloatingLabel>
-                </Col>
-                <Col xs={2}>
-                    <FloatingLabel controlId="floatingSelect-regiones" label="Regiones">
-                        <Form.Select aria-label="Floating label select regiones">
-                            <option>Seleccione...</option>
-                            {listCategory.map((category: ICategory) => (
-                                <option key={category.id} value={category.id}>{category.name_category}</option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
-                </Col>
-                <Col xs={2}>
-                    <FloatingLabel controlId="floatingSelect-ciudades" label="Ciudades">
-                        <Form.Select aria-label="Floating label select ciudades">
-                            <option>Seleccione...</option>
-                            {listCategory.map((category: ICategory) => (
-                                <option key={category.id} value={category.id}>{category.name_category}</option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
-                </Col>
-                <Col xs={2}>
-                    <FloatingLabel controlId="floatingSelect-categorias" label="Categorias">
-                        <Form.Select aria-label="Floating label select categorias">
-                            <option>Seleccione...</option>
-                            {listCategory.map((category: ICategory) => (
-                                <option key={category.id} value={category.id}>{category.name_category}</option>
-                            ))}
-                        </Form.Select>
-                    </FloatingLabel>
-                </Col>
-                <Col xs={12} sm={12} md={2} className="pt-1">
-                    <Button variant="outline-primary" size="lg" className="w-full" type="submit">Buscar</Button>
-                </Col>
+                <Grid columns="3" gap="3" width="auto">
+                    <Box maxWidth="100%">
+                        <TextField.Root size="3" placeholder="Buscar…" />
+                    </Box>
+                    <Select.Root defaultValue="0" size="3">
+                        <Select.Trigger />
+                        <Select.Content>
+                            <Select.Group>
+                                <Select.Item value="0">Seleccione...</Select.Item>
+                                {listCategory.map((category: ICategory) => (
+                                    <Select.Item key={category.id} value={category.id}>{category.name_category}</Select.Item>
+                                ))}
+                            </Select.Group>
+                        </Select.Content>
+                    </Select.Root>
 
-            </Form>
+                    <Box maxWidth="100%">
+                        <Button variant="outline" size="3" className="w-full lg:w-auto" type="submit">Buscar</Button>
+                    </Box>
+                </Grid>
+
+
+
+
+            </form>
         </div>
     )
 }

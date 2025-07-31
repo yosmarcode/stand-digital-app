@@ -2,11 +2,10 @@
 'use client'
 import { LoadingComponents } from '@/components/loading/LoadingComponent'
 import { validateEmail } from '@/helpers/ValidateEmail/validateEmail'
-import { supabase } from '@/instegrations/supabase'
 import { webApiServices } from '@/services/webApiServices'
+import { Box, Button, Flex, TextField } from '@radix-ui/themes'
 import { enqueueSnackbar } from 'notistack'
 import React from 'react'
-import { Form } from 'react-bootstrap'
 
 const FormNewUser = () => {
 
@@ -128,91 +127,66 @@ const FormNewUser = () => {
                 <p className='text-gray-500 text-md'>Registrate para poder iniciar sesión</p>
             </div>
             <form onSubmit={handleRegisterByUser} className='flex flex-col gap-4 bg-white p-4 rounded-xl' >
-                <Form.Floating className="mb-1">
-                    <Form.Control
-                        id="floatingInputCustom"
-                        type="email"
-                        placeholder="name@example.com"
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Correo Eléctronico"
                         value={formValue.email}
                         onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
-                        isInvalid={(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email)))}
                     />
-                    {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) && <Form.Control.Feedback type="invalid">
+                    {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) &&
                         <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
-                    </Form.Control.Feedback>}
-                    <label htmlFor="floatingInputCustom">Correo Eléctronico</label>
-                </Form.Floating>
-                <Form.Floating className="mb-1">
-                    <Form.Control
-                        id="floatingInputCustom"
-                        type="text"
-                        placeholder="name@example.com"
+                    }
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Nombres"
                         value={formValue.name}
                         onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
-                        isInvalid={(isError && formValue.name.length < 1)}
                     />
-                    {(isError && formValue.name.length < 1) && <Form.Control.Feedback type="invalid">
-                        <p>Nombre es obligatorio</p>
-                    </Form.Control.Feedback>}
-                    <label htmlFor="floatingInputCustom">Nombres</label>
-                </Form.Floating>
-                <Form.Floating className="mb-1">
-                    <Form.Control
-                        id="floatingInputCustom"
-                        type="text"
-                        placeholder="name@example.com"
+                    {(isError && formValue.name.length < 1) && <p>Nombre es obligatorio</p>}
+                </Box>
+                <Box maxWidth="100%">
+                    <TextField.Root
+                        size="3"
+                        placeholder="Apellidos"
                         value={formValue.lastName}
                         onChange={(e) => setFormValue({ ...formValue, lastName: e.target.value })}
-                        isInvalid={(isError && formValue.lastName.length < 1)}
                     />
-                    {(isError && formValue.lastName.length < 1) && <Form.Control.Feedback type="invalid">
-                        <p>Apellido es obligatorio</p>
-                    </Form.Control.Feedback>}
-                    <label htmlFor="floatingInputCustom">Apellidos</label>
-                </Form.Floating>
+                    {(isError && formValue.lastName.length < 1) && <p>Apellido es obligatorio</p>}
+                </Box>
 
-
-
-
-                <div className='flex flex-row gap-2 w-full'>
-                    <Form.Floating className="mb-1 w-full">
-                        <Form.Control
-                            id="floatingInputCustom"
+                <Flex gap="2">
+                    <Box maxWidth="100%">
+                        <TextField.Root
+                            size="3"
+                            placeholder="Contraseña"
                             type="password"
-                            placeholder="****"
-                            className='w-full'
                             value={formValue.password}
                             onChange={(e) => setFormValue({ ...formValue, password: e.target.value })}
-                            isInvalid={isError && formValue.password.length < 1}
                         />
-                        {isError && formValue.password.length < 1 && <Form.Control.Feedback type="invalid">
-                            <p>Contraseña es obligatoria</p>
-                        </Form.Control.Feedback>}
-                        <label htmlFor="floatingInputCustom">Contraseña</label>
-                    </Form.Floating>
-                    <Form.Floating className="mb-1 w-full">
-                        <Form.Control
-                            id="floatingInputCustom"
+                        {(isError && formValue.password.length < 1) && <p>Contraseña es obligatoria</p>}
+                    </Box>
+                    <Box maxWidth="100%">
+                        <TextField.Root
+                            size="3"
+                            placeholder="Confirmar Contraseña"
                             type="password"
-                            placeholder="****"
-                            className='w-full'
                             value={formValue.confirmPassword}
                             onChange={(e) => setFormValue({ ...formValue, confirmPassword: e.target.value })}
-                            isInvalid={isError && formValue.confirmPassword.length < 1}
                         />
-                        {isError && formValue.confirmPassword.length < 1 && <Form.Control.Feedback type="invalid">
-                            <p>Confirmar Contraseña es obligatoria</p>
-                        </Form.Control.Feedback>}
-                        <label htmlFor="floatingInputCustom">Confirmar Contraseña</label>
-                    </Form.Floating>
-                </div>
+                        {(isError && formValue.confirmPassword.length < 1) && <p>Confirmar Contraseña es obligatoria</p>}
+                    </Box>
+                </Flex>
                 <div className='flex flex-col gap-2'>
-                    <button
+                    <Button
                         type="submit"
                         disabled={isLoading || (formValue.password !== formValue.confirmPassword) || (validateEmail(formValue.email) === false)}
-                        className='bg-blue-500 text-white p-2 rounded-2'>
+                        size="3"
+                        variant="outline">
                         {isLoading ? <LoadingComponents /> : 'Registrarse'}
-                    </button>
+                    </Button>
                 </div>
             </form >
         </div >

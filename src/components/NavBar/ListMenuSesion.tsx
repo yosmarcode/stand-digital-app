@@ -4,10 +4,9 @@ import { enqueueSnackbar } from 'notistack';
 import React from 'react'
 import { Button, DropdownMenu } from '@radix-ui/themes';
 import { LoadingComponents } from '../loading/LoadingComponent';
-import userStore from '@/guards/userstore'
+import userStore from '@/guards/userstore';
 const ListMenuSesion = () => {
-    const nameUser = userStore?.user.user_metadata.full_name
-
+    const nameUser = userStore?.user?.user_metadata.full_name
     const [isLoading, setIsLoading] = React.useState(false)
     const handsignOut = async () => {
         setIsLoading(true)

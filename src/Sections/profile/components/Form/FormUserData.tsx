@@ -6,7 +6,6 @@ import React from 'react'
 
 const FormUserData = ({ userData }: { userData: IUser | undefined }) => {
     const [isError, setIsError] = React.useState(false)
-    const [messageError, setMessageError] = React.useState('')
     const [formValue, setFormValue] = React.useState({
         email: userData?.user_metadata?.email ?? '',
         name: userData?.user_metadata?.full_name ?? '',
@@ -41,17 +40,7 @@ const FormUserData = ({ userData }: { userData: IUser | undefined }) => {
                         <p>Nombre es obligatorio</p>
                     }
                 </Box>
-                <Box maxWidth="100%">
-                    <TextField.Root
-                        size="3"
-                        placeholder="Apellido"
-                        value={formValue.name}
-                        onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
-                    />
-                    {(isError && (formValue.name.length < 1)) &&
-                        <p>Apellido es obligatorio</p>
-                    }
-                </Box>
+
                 <Box maxWidth="100%">
                     <TextField.Root
                         size="3"

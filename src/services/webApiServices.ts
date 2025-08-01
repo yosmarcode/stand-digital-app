@@ -11,6 +11,10 @@ export const webApiServices = {
         return { data, error }
 
     },
+    getSessionServices: async () => {
+        const { data, error } = await supabase.auth.getSession()
+        return { data, error }
+    },
     getNewUserServices: async (email: string, password: string, name: string, lastName: string) => {
 
         const { data, error } = await supabase.auth.signUp({

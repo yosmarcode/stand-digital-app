@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import SectionsComponents from "@/Sections/SectionsComponents";
 import FormFilter from "@/Sections/sellers/components/Forms/FormFilter";
 import { SellerAllComponents } from "@/Sections/sellers/MainSeller";
 import { redirect } from "next/navigation";

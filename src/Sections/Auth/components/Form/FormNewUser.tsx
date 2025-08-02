@@ -117,9 +117,9 @@ const FormNewUser = () => {
     }
 
     return (
-        <div className='w-full bg-gray-50 rounded-4'>
+        <div className='w-full bg-gray-50 rounded-xl'>
             {isLoading && <LoadingComponents />}
-            {isError && <div className='text-red-500 text-center'>
+            {isError && <div className='text-red-500 text-center p-2'>
                 {messageError}
             </div>}
             <div className='flex flex-col gap-2 text-start p-4'>
@@ -135,7 +135,7 @@ const FormNewUser = () => {
                         onChange={(e) => setFormValue({ ...formValue, email: e.target.value })}
                     />
                     {(isError && (formValue.email.length < 1) || (formValue.email.length > 2 && !validateEmail(formValue.email))) &&
-                        <p>Correo electrónico es obligatorio o correo electrónico es inválido</p>
+                        <p className='text-red-500 text-center p-2 text-sm'>Correo electrónico es obligatorio o correo electrónico es inválido</p>
                     }
                 </Box>
                 <Box maxWidth="100%">
@@ -145,7 +145,7 @@ const FormNewUser = () => {
                         value={formValue.name}
                         onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
                     />
-                    {(isError && formValue.name.length < 1) && <p>Nombre es obligatorio</p>}
+                    {(isError && formValue.name.length < 1) && <p className='text-red-500 text-center p-2 text-sm'>Nombre es obligatorio</p>}
                 </Box>
                 <Box maxWidth="100%">
                     <TextField.Root
@@ -154,11 +154,11 @@ const FormNewUser = () => {
                         value={formValue.lastName}
                         onChange={(e) => setFormValue({ ...formValue, lastName: e.target.value })}
                     />
-                    {(isError && formValue.lastName.length < 1) && <p>Apellido es obligatorio</p>}
+                    {(isError && formValue.lastName.length < 1) && <p className='text-red-500 text-center p-2 text-sm'>Apellido es obligatorio</p>}
                 </Box>
 
-                <Flex gap="2">
-                    <Box maxWidth="100%">
+                <Flex gap="2" direction="row">
+                    <Box maxWidth="100%" minWidth="50%">
                         <TextField.Root
                             size="3"
                             placeholder="Contraseña"
@@ -166,9 +166,9 @@ const FormNewUser = () => {
                             value={formValue.password}
                             onChange={(e) => setFormValue({ ...formValue, password: e.target.value })}
                         />
-                        {(isError && formValue.password.length < 1) && <p>Contraseña es obligatoria</p>}
+                        {(isError && formValue.password.length < 1) && <p className='text-red-500 text-center p-2 text-sm'>Contraseña es obligatoria</p>}
                     </Box>
-                    <Box maxWidth="100%">
+                    <Box maxWidth="100%" minWidth="50%">
                         <TextField.Root
                             size="3"
                             placeholder="Confirmar Contraseña"
@@ -176,7 +176,7 @@ const FormNewUser = () => {
                             value={formValue.confirmPassword}
                             onChange={(e) => setFormValue({ ...formValue, confirmPassword: e.target.value })}
                         />
-                        {(isError && formValue.confirmPassword.length < 1) && <p>Confirmar Contraseña es obligatoria</p>}
+                        {(isError && formValue.confirmPassword.length < 1) && <p className='text-red-500 text-center p-2 text-sm'>Confirmar Contraseña es obligatoria</p>}
                     </Box>
                 </Flex>
                 <div className='flex flex-col gap-2'>

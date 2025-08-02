@@ -64,13 +64,13 @@ const FormLogin = () => {
     }
 
     return (
-        <div className='w-full bg-gray-50 rounded-2xl p-2'>
+        <div className='w-full rounded-2xl p-2'>
 
             {isLoading && <LoadingComponents />}
             {isError && <div className='text-red-500 text-center'>
                 {messageError}
             </div>}
-            <form className='flex flex-col gap-4 bg-white p-2 rounded-2xl' onSubmit={handleLogin}>
+            <form className='flex flex-col gap-4  p-2 rounded-2xl' onSubmit={handleLogin}>
 
                 <Box maxWidth="100%">
                     <TextField.Root

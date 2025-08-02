@@ -6,11 +6,11 @@ export function SellerAllComponents() {
     const urlPath = '/client';
     return (
         <Suspense fallback={<LoadingComponents />}>
-            <div className="flex flex-col gap-4 pt-12 mb-8 p-6">
+            <div className="flex flex-col gap-4 pt-12 mb-8 lg:p-6 p-2">
                 <h1 className="text-2xl font-bold text-black">Tiendas</h1>
                 <div className="flex flex-col items-center justify-center gap-4">
 
-                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {dataSeller.map((seller) => (
                             <CardComponentsSellers key={seller.id} imageSrc={urlPath + seller.urlLogo} title={seller.nameSeller} description={seller.description} category={seller.category} />
                         ))}

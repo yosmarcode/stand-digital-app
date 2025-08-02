@@ -4,9 +4,10 @@ import { webApiServices } from "@/services/webApiServices"
 import { enqueueSnackbar } from "notistack"
 import { ICategory } from "../../models"
 import { LoadingComponents } from "@/components/loading/LoadingComponent"
-import { Button, Grid, Select, TextField, Box } from "@radix-ui/themes"
+import { Button, Grid, TextField, Box } from "@radix-ui/themes"
 
 export default function FormFilter() {
+    const [selectedCategory, setCategoryCategory] = React.useState<string>("")
     const [listCategory, setListCategory] = React.useState<ICategory[]>([])
     const [isLoading, setIsLoading] = React.useState(false)
     const getListCategory = async () => {
@@ -29,27 +30,30 @@ export default function FormFilter() {
     }, [])
     return (
         <div className="w-full bg-white flex items-center justify-center p-4 ">
-
             {isLoading && <LoadingComponents />}
             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col lg:flex-row lg:gap-4 gap-2 w-full">
-
-                <Grid columns="3" gap="3" width="auto">
-                    <Box maxWidth="100%">
-                        <TextField.Root size="3" placeholder="Buscar…" />
+                <Grid columns={{ initial: "1", md: "2", lg: "3" }} gap="3" width="auto">
+                    <Box maxWidth="100%" className="w-full">
+                        <input type="text" placeholder="Buscar…" className="w-full mt-1 p-2 border rounded-md" />
                     </Box>
-                    <Select.Root defaultValue="0" size="3">
-                        <Select.Trigger />
-                        <Select.Content>
-                            <Select.Group>
-                                <Select.Item value="0">Seleccione...</Select.Item>
-                                {listCategory.map((category: ICategory) => (
-                                    <Select.Item key={category.id} value={category.id}>{category.name_category}</Select.Item>
-                                ))}
-                            </Select.Group>
-                        </Select.Content>
-                    </Select.Root>
+                    <Box maxWidth="100%" className="w-full">
 
-                    <Box maxWidth="100%">
+                        <select
+                            value={selectedCategory}
+                            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategoryCategory(e.target.value)}
+                            className="w-full mt-1 p-2 border rounded-md"
+                        >
+                            <option value="">Selecciona una categoria</option>
+                            {listCategory.map((category: ICategory) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.name_category}
+                                </option>
+                            ))}
+                        </select>
+
+
+                    </Box>
+                    <Box maxWidth="100%" m="1" className="w-full">
                         <Button variant="outline" size="3" className="w-full lg:w-auto" type="submit">Buscar</Button>
                     </Box>
                 </Grid>
@@ -57,7 +61,7 @@ export default function FormFilter() {
 
 
 
-            </form>
-        </div>
+            </form >
+        </div >
     )
 }

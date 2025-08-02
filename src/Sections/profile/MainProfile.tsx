@@ -1,3 +1,4 @@
+'use client'
 import { LoadingComponents } from "@/components/loading/LoadingComponent";
 import { Suspense } from "react";
 import ToBacks from "@/components/ToBack/ToBacks";
@@ -6,21 +7,31 @@ import { IUser } from "@/Sections/Auth/models";
 import userDefault from "@/assets/user-default.jpg";
 import FormUserData from "./components/Form/FormUserData";
 import FormChangePassword from "./components/Form/FormChangePassword";
-import { Flex, Box, Card, Avatar, Text } from "@radix-ui/themes";
+import { Flex, Box, Card, Avatar, Text, Button } from "@radix-ui/themes";
 import ModalComponents from "@/components/ui/ModalComponents";
 import MenuProfile from "./components/Menu/MenuProfile";
+import { webApiServices } from "@/services/webApiServices";
+import React from "react";
+import FormAddSellers from "../maintainerSellers/components/Form/FormAddSellers";
 
 export default function MainProfile() {
+    const [isSellers, setIsSellers] = React.useState(false)
     const userData: IUser | undefined = userStore?.user
+    const isSeller = webApiServices.getValidateIfTheUserSellsByUserIdServices(userStore?.user?.id as string)
+
+    React.useEffect(() => {
+        isSeller.then((res) => {
+            setIsSellers(res)
+        })
+    }, [])
 
     return (
         <Suspense fallback={<LoadingComponents />}>
             <div className="flex flex-col min-h-screen w-full  pt-24 ">
-
                 <div className="mx-auto">
                     <ToBacks />
                     <Flex gap="3" direction="row">
-                        <Box width="500px">
+                        <Box width="100%" className="p-2">
                             <Card size="1">
                                 <div className="flex items-center justify-center">
                                     <Avatar src={userDefault.src} size="8" radius="full" fallback="T" color="blue" />
@@ -54,10 +65,26 @@ export default function MainProfile() {
                             </Card>
                         </Box>
                     </Flex>
-                    <Flex gap="3" direction="row" pt="2">
+                    <Flex gap="3" direction="row" pt="2" className="p-2">
                         <Box width="500px">
-                            <Card size="1">
-                                <MenuProfile />
+
+                            <Card size="2">
+                                {isSellers ? (
+                                    <MenuProfile />
+                                ) : (
+                                    <Flex gap="3" direction="column" justify="center">
+                                        <Text as="div" size="4" weight="regular" color="gray" style={{ textAlign: 'center' }}>
+                                            ¿Quieres promocionar tu Emprendimiento?
+                                        </Text>
+                                        <div className="flex items-center justify-center">
+                                            <ModalComponents
+                                                titleModal="¡Activa tu cuenta!"
+                                                titleButton="¡Activa tu cuenta!"
+                                                chiledrenBody={<FormAddSellers />}
+                                            />
+                                        </div>
+                                    </Flex>
+                                )}
                             </Card>
                         </Box>
                     </Flex>

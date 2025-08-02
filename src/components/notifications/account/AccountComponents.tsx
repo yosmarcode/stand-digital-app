@@ -2,6 +2,8 @@
 import React from "react";
 import CloseCircle from "@/assets/icons/CloseCircle.svg";
 import { ImageComponents } from "@/components/imageComponents/ImageComponents";
+import ModalComponents from "@/components/ui/ModalComponents";
+import FormAddSellers from "@/Sections/maintainerSellers/components/Form/FormAddSellers";
 
 export function AccountComponents() {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);
@@ -17,20 +19,21 @@ export function AccountComponents() {
           <div className=" float-end pt-1 cursor-pointer" onClick={handOpen}>
             <ImageComponents src={CloseCircle} alt="" className="size-16" />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 mt-2 mb-2">
             <span className="text-2xl text-black ">
-              ¿No tienes cuenta?
+              ¿Quieres Promocionar tu Emprendimiento?
             </span>
             <span className="text-black ">
-              Es necesario crear cuenta para poder comprar y calificar productos
-              y tiendas
+              Registrate para poder promocionar tu emprendimiento
             </span>
           </div>
           <div className="flex items-center justify-start p-2">
 
-            <span className="bg-blue-500 hover:bg-blue-600  text-white rounded-3xl text-xl w-60 h-12 p-2 text-center hover:cursor-pointer ">
-              ¡Crear una!
-            </span>
+            <ModalComponents
+              titleModal="¡Activa tu cuenta!"
+              titleButton="¡Activa tu cuenta!"
+              chiledrenBody={<FormAddSellers />}
+            />
           </div>
         </div>
       )}

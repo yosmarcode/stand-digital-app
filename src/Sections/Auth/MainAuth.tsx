@@ -2,14 +2,12 @@
 import FormLogin from "./components/Form/FormLogin";
 import React from "react";
 import FormNewUser from "./components/Form/FormNewUser";
-import userStore from "@/guards/userstore";
 import { useEffect } from "react";
 import { redirect } from "next/navigation";
 import ModalComponents from "@/components/ui/ModalComponents";
+import userStore from "@/guards/userstore";
 
 export default function MainAuth() {
-    const [isOpen, setIsOpen] = React.useState(false);
-
     const sessionStatus: boolean = userStore ? true : false;
     useEffect(() => {
         if (sessionStatus) {
@@ -26,8 +24,6 @@ export default function MainAuth() {
                     <ModalComponents
                         titleModal="Creando nueva cuenta"
                         titleButton="¿No tienes cuentas? "
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
                         chiledrenBody={<FormNewUser />}
                     />
                 </div>

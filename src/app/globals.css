@@ -25,3 +25,15 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   height: 100vh;
 }
+
+select {
+  border: 0.7px solid #d8d5d5;
+  outline: none;
+  height: 40px;
+}
+
+input {
+  border: 0.7px solid #d8d5d5;
+  outline: none;
+  height: 40px;
+}

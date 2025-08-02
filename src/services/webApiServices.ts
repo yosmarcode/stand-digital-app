@@ -1,4 +1,5 @@
 import { supabase } from "@/instegrations/supabase"
+import { ISellers } from "@/Sections/sellers/models"
 import { enqueueSnackbar } from "notistack"
 
 export const webApiServices = {
@@ -10,6 +11,14 @@ export const webApiServices = {
         })
         return { data, error }
 
+    },
+    getLogoutServices: async () => {
+        const { error } = await supabase.auth.signOut()
+        return { error }
+    },
+    getSessionServices: async () => {
+        const { data, error } = await supabase.auth.getSession()
+        return { data, error }
     },
     getNewUserServices: async (email: string, password: string, name: string, lastName: string) => {
 
@@ -39,4 +48,40 @@ export const webApiServices = {
         const { data, error } = await supabase.from('category').select('id, name_category, active').eq('active', 1)
         return { data, error }
     },
+
+    // obtener si el usuario vende
+    getValidateIfTheUserSellsByUserIdServices: async (user_id: string) => {
+        const { data, error } = await supabase.from('sellers').select('*').eq('id_user', user_id)
+        if (error) {
+            console.log(error)
+            return false
+        }
+        console.log(data?.length)
+        return data?.length > 0 ? true : false
+    },
+    getIdAccountServices: async (user_id: string) => {
+        const { data, error
+        } = await supabase.from('account').select('*').eq('id_user', user_id)
+        if (error) {
+            console.log(error)
+
+        }
+        if (data) {
+            return data[0].id
+        }
+    },
+
+    createSellersServices: async (body: ISellers) => {
+        const { error } = await supabase.from('sellers').insert({
+            id_user: body.id_user,
+            name_sellers: body.name_sellers,
+            descriptions: body.descriptions,
+            id_category: body.id_category,
+            id_account: body.id_account,
+            active: body.active,
+            id_contry: body.id_contry
+        })
+        return { error }
+    }
+
 }

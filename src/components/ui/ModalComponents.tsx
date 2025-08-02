@@ -1,5 +1,7 @@
-import { Button, Dialog, Flex, Spinner } from '@radix-ui/themes'
-import React from 'react'
+'use client'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
+import React, { Suspense } from 'react'
+import { LoadingComponents } from '../loading/LoadingComponent'
 
 const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModal?: string, titleButton?: string, chiledrenBody: React.ReactNode }) => {
     return (
@@ -12,13 +14,19 @@ const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModa
                     <Dialog.Title>
                         {titleModal}
                     </Dialog.Title>
-                    <Dialog.Description>
-                        {chiledrenBody}
-                    </Dialog.Description>
+                    <Dialog.Description />
+                    <div>
+                        <Suspense fallback={<LoadingComponents />}>
+                            {chiledrenBody}
+                        </Suspense>
+                    </div>
 
 
 
-                    <Flex gap="3" justify="end" className='pt-2'>
+
+
+
+                    <Flex gap="3" justify="end" className='pt-4 border-t border-gray-200'>
                         <Dialog.Close>
                             <Button
                                 type="submit"

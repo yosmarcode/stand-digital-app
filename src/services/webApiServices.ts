@@ -82,6 +82,14 @@ export const webApiServices = {
             id_contry: body.id_contry
         })
         return { error }
-    }
+    },
+    getListSellersByNameSellerAndCategoryServices: async (p_name_sellers: string, p_idcategory: string) => {
+        const { data, error } = await supabase
+            .rpc('getlistsellersactive', {
+                p_idcategory,
+                p_name_sellers
+            })
+        return { data, error }
+    },
 
 }

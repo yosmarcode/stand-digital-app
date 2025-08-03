@@ -1,9 +1,11 @@
-import { dataSeller } from "@/helpers/Dummy/dataSeller";
 import { CardComponentsSellers } from "../../components/ui/CardComponentsSellers";
 import { Suspense } from "react";
 import { LoadingComponents } from "../../components/loading/LoadingComponent";
+import React from "react";
+import { useContextSellerList } from "./context/ContextSellerList";
+import { ISellersList } from "./models";
 export function SellerAllComponents() {
-    const urlPath = '/client';
+    const { dataSeller } = useContextSellerList()
     return (
         <Suspense fallback={<LoadingComponents />}>
             <div className="flex flex-col gap-4 pt-12 mb-8 lg:p-6 p-2">
@@ -11,8 +13,12 @@ export function SellerAllComponents() {
                 <div className="flex flex-col items-center justify-center gap-4">
 
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {dataSeller.map((seller) => (
-                            <CardComponentsSellers key={seller.id} imageSrc={urlPath + seller.urlLogo} title={seller.nameSeller} description={seller.description} category={seller.category} />
+                        {dataSeller?.map((seller: ISellersList) => (
+                            <CardComponentsSellers
+                                key={seller.id}
+                                imageSrc={seller.logo_sellers}
+                                title={seller.name_sellers} description={seller.descriptions}
+                                category={{ id: Number(seller.idcategory), description: seller.namecategory }} />
                         ))}
                     </div>
                 </div>

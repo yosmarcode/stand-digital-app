@@ -3,7 +3,7 @@ import React from "react";
 import CloseCircle from "@/assets/icons/CloseCircle.svg";
 import { ImageComponents } from "@/components/imageComponents/ImageComponents";
 import ModalComponents from "@/components/ui/ModalComponents";
-import FormAddSellers from "@/Sections/maintainerSellers/components/Form/FormAddSellers";
+import FormAddSellers from "@/Sections/dashboard/components/Form/FormAddSellers";
 
 export function AccountComponents() {
   const [isOpen, setIsOpen] = React.useState<boolean>(true);

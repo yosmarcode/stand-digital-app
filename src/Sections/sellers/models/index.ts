@@ -24,6 +24,7 @@ export interface ISellers {
     id_account: string;
     active?: boolean;
     id_contry?: string;
+    nickname?: string;
 }
 
 export interface ISellersList {
@@ -35,5 +36,5 @@ export interface ISellersList {
     tags?: string[];
     idcategory: string;
     namecategory: string;
-
+    nickname?: string;
 }

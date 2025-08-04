@@ -1,5 +1,5 @@
 "use client"
-import MaintainerSellers from "@/Sections/maintainerSellers/MaintainerSellers"
+import MaintainerSellers from "@/Sections/dashboard/MaintainerSellers"
 import SectionsComponents from "@/Sections/SectionsComponents"
 export default function PageConfigSellers() {
     return (

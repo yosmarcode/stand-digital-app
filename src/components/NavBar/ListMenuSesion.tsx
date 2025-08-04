@@ -5,11 +5,19 @@ import { Button, DropdownMenu } from '@radix-ui/themes';
 import { LoadingComponents } from '../loading/LoadingComponent';
 import userStore from '@/guards/userstore';
 import { webApiServices } from '@/services/webApiServices';
-
+import useIsSellersActive from '@/hooks/useIsSellersActive';
 
 const ListMenuSesion = () => {
-    const nameUser = userStore?.user?.user_metadata.full_name
     const [isLoading, setIsLoading] = React.useState(false)
+    const [isClient, setIsClient] = React.useState(false)
+
+    React.useEffect(() => {
+        setIsClient(true)
+    }, [])
+
+    const nameUser = isClient ? userStore?.user?.user_metadata.full_name : ''
+    const isSeller = useIsSellersActive({ userId: userStore?.user?.id as string });
+
     const handsignOut = async () => {
         setIsLoading(true)
         const { error } = await webApiServices.getLogoutServices()
@@ -23,24 +31,31 @@ const ListMenuSesion = () => {
     }
 
     return (
-        <div className='flex flex-row gap-2'>
-            <div className='flex flex-row gap-2'>
-                {isLoading && <LoadingComponents />}
-            </div>
-            <DropdownMenu.Root>
-                <DropdownMenu.Trigger>
-                    <Button variant="solid" size="2">
-                        {nameUser}
-                        <DropdownMenu.TriggerIcon />
-                    </Button>
-                </DropdownMenu.Trigger>
-                <DropdownMenu.Content>
-                    <DropdownMenu.Item onClick={() => { window.location.href = '/profile' }}>Perfil</DropdownMenu.Item>
-                    <DropdownMenu.Item onClick={handsignOut}>Cerrar Sesión</DropdownMenu.Item>
-                </DropdownMenu.Content>
-            </DropdownMenu.Root>
+        <div>
+            {isClient && (
+                <div className='flex flex-row gap-2'>
 
+                    <div className='flex flex-row gap-2'>
+                        {isLoading && <LoadingComponents />}
+                    </div>
 
+                    <DropdownMenu.Root>
+                        <DropdownMenu.Trigger>
+                            <Button variant="solid" size="2">
+                                {nameUser}
+                                <DropdownMenu.TriggerIcon />
+                            </Button>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Content>
+                            <DropdownMenu.Item onClick={() => { window.location.href = '/profile' }}>Perfil</DropdownMenu.Item>
+                            {isSeller && (
+                                <DropdownMenu.Item onClick={() => { window.location.href = '/dashboard-sellers' }}>Dashboard</DropdownMenu.Item>
+                            )}
+                            <DropdownMenu.Item onClick={handsignOut}>Cerrar Sesión</DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Root>
+                </div>
+            )}
         </div>
     )
 }

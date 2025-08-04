@@ -8,7 +8,7 @@ const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModa
         <div>
             <Dialog.Root>
                 <Dialog.Trigger>
-                    <Button variant="outline">{titleButton}</Button>
+                    <Button variant="outline" size="2" className='w-full cursor-pointer'>{titleButton}</Button>
                 </Dialog.Trigger>
                 <Dialog.Content className='w-[40rem]'>
                     <Dialog.Title>

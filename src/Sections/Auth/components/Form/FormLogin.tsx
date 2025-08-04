@@ -108,7 +108,7 @@ const FormLogin = () => {
                         {isLoading && <Spinner loading={isLoading} />}
                         Iniciar Sesión
                     </Button>
-                    <Button variant="outline" size="3" className="w-full" type="submit">¿Olvidaste tu contraseña?</Button>
+                    <Button variant="ghost" size="3" className="w-full" type="submit">¿Olvidaste tu contraseña?</Button>
                 </div>
             </form >
         </div >

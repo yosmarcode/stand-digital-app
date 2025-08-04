@@ -7,23 +7,17 @@ import { IUser } from "@/Sections/Auth/models";
 import userDefault from "@/assets/user-default.jpg";
 import FormUserData from "./components/Form/FormUserData";
 import FormChangePassword from "./components/Form/FormChangePassword";
-import { Flex, Box, Card, Avatar, Text, Button } from "@radix-ui/themes";
+import { Flex, Box, Card, Avatar, Text } from "@radix-ui/themes";
 import ModalComponents from "@/components/ui/ModalComponents";
 import MenuProfile from "./components/Menu/MenuProfile";
-import { webApiServices } from "@/services/webApiServices";
 import React from "react";
-import FormAddSellers from "../maintainerSellers/components/Form/FormAddSellers";
+import FormAddSellers from "../dashboard/components/Form/FormAddSellers";
+import useIsSellersActive from "@/hooks/useIsSellersActive";
 
 export default function MainProfile() {
-    const [isSellers, setIsSellers] = React.useState(false)
     const userData: IUser | undefined = userStore?.user
-    const isSeller = webApiServices.getValidateIfTheUserSellsByUserIdServices(userStore?.user?.id as string)
+    const isSeller = useIsSellersActive({ userId: userData?.id as string })
 
-    React.useEffect(() => {
-        isSeller.then((res) => {
-            setIsSellers(res)
-        })
-    }, [])
 
     return (
         <Suspense fallback={<LoadingComponents />}>
@@ -69,7 +63,7 @@ export default function MainProfile() {
                         <Box width="500px">
 
                             <Card size="2">
-                                {isSellers ? (
+                                {isSeller ? (
                                     <MenuProfile />
                                 ) : (
                                     <Flex gap="3" direction="column" justify="center">

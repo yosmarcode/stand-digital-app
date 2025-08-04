@@ -1,6 +1,5 @@
 import { supabase } from "@/instegrations/supabase"
 import { ISellers } from "@/Sections/sellers/models"
-import { enqueueSnackbar } from "notistack"
 
 export const webApiServices = {
     getLoginServices: async (email: string, password: string) => {
@@ -82,6 +81,28 @@ export const webApiServices = {
             id_contry: body.id_contry
         })
         return { error }
-    }
+    },
+    getListSellersByNameSellerAndCategoryServices: async (p_name_sellers: string, p_idcategory: string) => {
+        const { data, error } = await supabase
+            .rpc('getlistsellersactive', {
+                p_idcategory,
+                p_name_sellers
+            })
+        return { data, error }
+    },
 
+    getDetailsSellerByNickNameServices: async (p_nickname: string) => {
+        const { data, error } = await supabase.rpc('getDetailsSellerByNickName', {
+            p_nickname
+        })
+        return { data, error }
+
+    },
+    getSellerListByIdUserServices: async (p_id_user: string) => {
+        const { data, error } = await supabase
+            .rpc('getsellerlistbyiduser', {
+                p_id_user
+            })
+        return { data, error }
+    }
 }

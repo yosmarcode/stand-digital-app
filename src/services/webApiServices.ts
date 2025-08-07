@@ -104,5 +104,11 @@ export const webApiServices = {
                 p_id_user
             })
         return { data, error }
+    },
+    getDetailsSellerByIdServices: async (p_id_seller: number) => {
+        const { data, error } = await supabase.rpc('getdetailssellerbyiduser', {
+            p_id_seller
+        })
+        return { data, error }
     }
 }

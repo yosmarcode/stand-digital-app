@@ -2,6 +2,7 @@
 import { ImageComponents } from "../imageComponents/ImageComponents"
 import { StaticImageData } from "next/image";
 import ImagDefault from '@/assets/default-featured-image.jpg'
+import BadgeComponents from "./Badge/BadgeComponents";
 export function CardComponentsSellers({
     imageSrc,
     title,
@@ -24,9 +25,7 @@ export function CardComponentsSellers({
             <div className="flex flex-col gap-2 pt-4 text-center">
                 <span className="font-bold text-lg text-black">{title.toLocaleUpperCase() ?? ''}</span>
                 <span className="text-sm text-black">{description}</span>
-                <div className="px-6 pt-4 pb-2">
-                    <span className="text-xs text-blue-500 hover:text-blue-600 hover:cursor-pointer rounded-md p-1 border-1 border-blue-500 hover:border-blue-600 transition-all duration-300">{category.description}</span>
-                </div>
+                <BadgeComponents className="px-6 pt-4 pb-2" category={category} handClick={() => console.log('category', category)} />
 
             </div>
         </div>

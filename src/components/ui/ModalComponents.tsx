@@ -3,12 +3,12 @@ import { Button, Dialog, Flex } from '@radix-ui/themes'
 import React, { Suspense } from 'react'
 import { LoadingComponents } from '../loading/LoadingComponent'
 
-const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModal?: string, titleButton?: string, chiledrenBody: React.ReactNode }) => {
+const ModalComponents = ({ titleModal, titleButton, chiledrenBody,  buttonVariant}: { titleModal?: string, titleButton?: string, chiledrenBody: React.ReactNode, buttonVariant?: 'outline' | 'solid' | 'ghost' | 'classic' | 'soft' | 'surface' }) => {
     return (
         <div>
             <Dialog.Root>
                 <Dialog.Trigger>
-                    <Button variant="outline" size="2" className='w-full cursor-pointer'>{titleButton}</Button>
+                    <Button variant={buttonVariant || 'outline'} size="2" className='w-full cursor-pointer'>{titleButton}</Button>
                 </Dialog.Trigger>
                 <Dialog.Content className='w-[40rem]'>
                     <Dialog.Title>
@@ -21,17 +21,12 @@ const ModalComponents = ({ titleModal, titleButton, chiledrenBody }: { titleModa
                         </Suspense>
                     </div>
 
-
-
-
-
-
-                    <Flex gap="3" justify="end" className='pt-4 border-t border-gray-200'>
-                        <Dialog.Close>
+                    <Flex gap="3" justify="end"  pt="4" >
+                        <Dialog.Close >
                             <Button
                                 type="submit"
                                 size="3"
-                                variant="outline">
+                                variant="ghost">
                                 Cerrar
                             </Button>
                         </Dialog.Close>

@@ -4,19 +4,20 @@ import React, { Suspense } from 'react'
 import userStore from '@/guards/userstore'
 
 import MenuListSellers from './components/Menu/MenuListSellers'
-import { Avatar } from '@radix-ui/themes'
+import { Avatar, Text } from '@radix-ui/themes'
 import userDefault from '@/assets/user-default.jpg'
 import { ImageComponents } from '@/components/imageComponents/ImageComponents'
-import ImageSquaresWallppar from '@/assets/default_wallpper.jpg'
+import ImagenDefault from '@/assets/default_wallpper.jpg'
 import { webApiServices } from '@/services/webApiServices'
 import { enqueueSnackbar } from 'notistack'
 import { ISellers, ISellersList } from '../sellers/models'
 import DetailsSellerComponent from './components/DetailsSellerComponent'
-import { pathImgAssets } from '@/constants'
+
+import ModalComponents from '@/components/ui/ModalComponents'
+import UploadWallpper from '@/helpers/UploadFile/UploadWallpper'
+import BadgeComponents from '@/components/ui/Badge/BadgeComponents'
 
 const MaintainerSellers = () => {
-    
-    const id_seller = 11 as number
     const user = userStore?.user
     const [sellersList, setSellersList] = React.useState<ISellers[]>([])
     const [detailsSeller, setDetailsSeller] = React.useState<ISellersList[] | null>(null)
@@ -27,6 +28,9 @@ const MaintainerSellers = () => {
             enqueueSnackbar(error.message, { variant: 'error' })
         }
         if (data) {
+            console.log('data', data)
+            // obtengo el detalle del primer seller
+            getDetailsSellerById(data[0].id)
             setSellersList(data)
 
         }
@@ -44,7 +48,6 @@ const MaintainerSellers = () => {
     }
 
     React.useEffect(() => {
-        getDetailsSellerById(id_seller)
         getSellersListByIdUser(user?.id as string)
     }, [user?.id])
 
@@ -67,35 +70,68 @@ const MaintainerSellers = () => {
 
                         </div>
                         <div>
-                            <MenuListSellers sellersList={sellersList} />
+                            <MenuListSellers sellersList={sellersList} getDetailsSellerById={getDetailsSellerById} />
                         </div>
 
                     </div>
                 </div>
 
-                <div className="w-full lg:max-w-[80%] ">
-                    <div className="lg:pt-24 pt-12 bg-blue-50 flex flex-col items-center justify-center h-auto rounded-xl p-4">
+                <div className="w-full lg:max-w-[78%] ">
+                    <div className="flex flex-col justify-center p-4 pt-24">
+
+
+
 
                         <div className="w-full">
+
                             {detailsSeller && (
-                                <div>
-                                   { detailsSeller[0]?.wallpper_img ?
-                                    <ImageComponents src={ pathImgAssets + detailsSeller[0]?.wallpper_img.toString()} alt="squares" className="w-full h-full object-cover rounded-xl" width={1600} height={200} />
-                                    :
-                                    <ImageComponents src={ImageSquaresWallppar.src} alt="squares" className="w-full h-full object-cover rounded-xl" width={800} height={200} />
-                                    }
-                                    <DetailsSellerComponent detailsSeller={detailsSeller[0] as ISellersList} />
+                                <div className="relative pt-4">
+                                    <div className="w-full h-[auto] ">
+
+                                        <div className="absolute top-10 left-10 w-full h-full">
+                                            <ModalComponents
+                                                titleModal="Actualizar Wallpper"
+                                                titleButton="Subir imagen"
+                                                buttonVariant="solid"
+                                                chiledrenBody={<div>
+                                                    <UploadWallpper sellerId={detailsSeller[0]?.id?.toString() || '0'} nameFunction="upload-wallpper" />
+                                                </div>}
+                                            />
+                                        </div>
+                                        {detailsSeller && detailsSeller[0]?.wallpper_img ?
+
+                                            <ImageComponents src={process.env.NEXT_PUBLIC_SUPABASE_URL + detailsSeller[0].wallpper_img.toString()} alt="squares" className="w-full h-[400px] object-cover rounded-xl" width={1600} height={200} />
+                                            :
+                                            <ImageComponents src={ImagenDefault.src} alt="squares" className="w-full h-[400px] object-cover rounded-xl" width={815} height={400} />
+
+                                        }
+                                        <div className='flex justify-end items-center gap-2 mt-2'>
+                                            {detailsSeller && <div className="flex justify-end items-center">
+                                                <BadgeComponents category={{ id: Number(detailsSeller[0]?.idcategory), description: detailsSeller[0]?.namecategory }} />
+                                            </div>}
+                                        </div>
+                                    </div>
                                 </div>
+
+
                             )}
 
 
                         </div>
-
+                        {/* detalles del vendedor */}
+                        <div className='w-full h-full rounded-xl'>
+                            {detailsSeller && (
+                                <DetailsSellerComponent detailsSeller={detailsSeller[0] as ISellersList} getDetailsSellerById={getDetailsSellerById} />
+                            )}
+                        </div>
                     </div>
 
 
                 </div>
-            </div >
+
+
+            </div>
+
         </Suspense >
     )
 }

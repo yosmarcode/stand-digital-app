@@ -1,44 +1,65 @@
-import { Flex } from '@radix-ui/themes'
+import { Flex, Link, Separator } from '@radix-ui/themes'
 import React from 'react'
 import userDefault from '@/assets/user-default.jpg'
 import ModalComponents from '@/components/ui/ModalComponents'
 import { Avatar } from '@radix-ui/themes'
-import { Text } from '@radix-ui/themes'
+import { Text, Heading } from '@radix-ui/themes'
 import FormEditDataSellers from './Form/FormEditDataSellers'
 import { ISellersList } from '@/Sections/sellers/models'
-import BadgeComponents from '@/components/ui/Badge/BadgeComponents'
-const DetailsSellerComponent = ({ detailsSeller }: { detailsSeller: ISellersList }) => {
+import UploadWallpper from '@/helpers/UploadFile/UploadWallpper'
+import DetailsSocialNetWorks from './DetailsSocialNetWorks'
+const DetailsSellerComponent = ({ detailsSeller, getDetailsSellerById }: { detailsSeller: ISellersList, getDetailsSellerById: (id_seller: number) => void }) => {
     return (
-        <div>
-            <Flex className="flex items-center justify-start pt-12 gap-4">
-                <Avatar src={userDefault.src} size="8" radius="full" fallback="T" color="blue" />
-                <div className="flex flex-col gap-y-2">
-                    <Text as="span" size="9" weight="bold">
-                        {detailsSeller?.name_sellers}
-                    </Text>
-                    <Flex className='flex flex-col items-start gap-y-1'>
-                        <Text as="span" size="2" weight="medium">
-                            {detailsSeller?.nicknames}
-                        </Text>
-                        <Text as="span" size="2" weight="regular">
-                            10 Likes
-                        </Text>
-                        <Text as="span" size="4" weight="regular">
-                        {detailsSeller?.descriptions}
-                    </Text>
-                    <div>
-                        {detailsSeller?.namecategory && (
-                            <BadgeComponents className="" category={{ id: Number(detailsSeller?.idcategory), description: detailsSeller?.namecategory }} handClick={() => console.log('category', detailsSeller)} />
-                        )}
+        <div className='w-full h-full bg-white p-2 gap-4 mt-4 rounded-xl'>
+            <div className='grid grid-cols-2 lg:grid-cols-2 gap-4'>
+
+                <div className='p-2 rounded-xl'>
+                    <div className='gap-4 flex items-center'>
+                        <div className='text-center'>
+                            <Avatar src={detailsSeller?.logo_sellers ? process.env.NEXT_PUBLIC_SUPABASE_URL + detailsSeller?.logo_sellers : userDefault.src} size="8" radius="medium" fallback="T" color="blue" />
+
+                            <ModalComponents titleModal="Editar Avatar" titleButton="Editar Avatar" buttonVariant="ghost" chiledrenBody={<UploadWallpper sellerId={detailsSeller?.id?.toString() || '0'} nameFunction="upload-logo-sellers" />} />
+                        </div>
+                        <div className='flex flex-col gap-y-2'>
+                        <Heading as="h3"> {detailsSeller?.name_sellers}</Heading>
+
+                        
+                            <Flex gap="3" align="center">
+                                <Link href={detailsSeller?.nicknames} target="_blank">
+                                    {detailsSeller?.nicknames}
+                                </Link>
+                                <Separator orientation="vertical" />
+                                <Text as="span" size="3" weight="regular">
+                                    10 Likes
+                                </Text>
+                            </Flex>
+                            <Text as="span" size="2" weight="regular">
+                                {detailsSeller?.descriptions}
+                            </Text>
+
+
+                            <Separator orientation="horizontal" size="4" />
+                            <Flex className='flex justify-start'>
+                                <ModalComponents titleModal="Editar Datos" titleButton="Editar Datos" buttonVariant="ghost" chiledrenBody={<FormEditDataSellers detailsSeller={detailsSeller} getDetailsSellerById={getDetailsSellerById} />} />
+                            </Flex>
+
+                        </div>
                     </div>
 
-                    </Flex>
-                
-                    <ModalComponents titleModal="Editar Datos" titleButton="Editar" chiledrenBody={<div>
-                        <FormEditDataSellers detailsSeller={detailsSeller} />
-                    </div>} />
+
+
+
                 </div>
-            </Flex>
+                <div className='flex justify-start items-center w-full '>
+               
+                    <DetailsSocialNetWorks idSeller={Number(detailsSeller?.id) || 0 } />
+
+
+                </div>
+
+
+            </div>
+
         </div>
     )
 }

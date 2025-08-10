@@ -110,5 +110,27 @@ export const webApiServices = {
             p_id_seller
         })
         return { data, error }
+    },
+
+    updateDataSellerByUser: async (p_id_seller: number, p_name_sellers: string, p_descriptions: string, p_id_category: string, p_nicknames: string) => {
+        const { error } = await supabase.from('sellers').update({
+            name_sellers: p_name_sellers,
+            descriptions: p_descriptions,
+            id_category: p_id_category,
+            nicknames: p_nicknames
+        }).eq('id', p_id_seller)
+        return { error }
+    },
+
+    getListSocialNetworkServices: async (p_id_seller: number) => {
+        const { data, error } = await supabase.from('social_networks').select('*').eq('active', true).eq('id_sellers', p_id_seller)
+        return { data, error }
+    },
+    updateSocialNetworkServices: async (p_id_seller: number, p_name_seller: string, p_descriptions: string, p_id_category: string, p_id_social_network: string, p_url: string) => {
+        const { error } = await supabase.from('social_networks').update({
+            id_social_network: p_id_social_network,
+            url: p_url
+        }).eq('id', p_id_seller)
+        return { error }
     }
 }

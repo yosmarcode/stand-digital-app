@@ -126,11 +126,27 @@ export const webApiServices = {
         const { data, error } = await supabase.from('social_networks').select('*').eq('active', true).eq('id_sellers', p_id_seller)
         return { data, error }
     },
-    updateSocialNetworkServices: async (p_id_seller: number, p_name_seller: string, p_descriptions: string, p_id_category: string, p_id_social_network: string, p_url: string) => {
+    SaveSocialNetworkServices: async (p_id_seller: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string) => {
+        const { error } = await supabase.from('social_networks').insert({
+            id_sellers: p_id_seller,
+            whatsapp: p_whatsapp,
+            tiktok: p_tiktok,
+            instagram: p_instagram,
+            facebook: p_facebook,
+            page_oficial: p_page_oficial,
+            active: true
+        })
+        return { error }
+    },
+    updateSocialNetworkServices: async (p_id: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string) => {
         const { error } = await supabase.from('social_networks').update({
-            id_social_network: p_id_social_network,
-            url: p_url
-        }).eq('id', p_id_seller)
+            whatsapp: p_whatsapp,
+            tiktok: p_tiktok,
+            instagram: p_instagram,
+            facebook: p_facebook,
+            page_oficial: p_page_oficial,
+            active: true
+        }).eq('id', p_id)
         return { error }
     }
 }

@@ -11,7 +11,7 @@ import DetailsSocialNetWorks from './DetailsSocialNetWorks'
 const DetailsSellerComponent = ({ detailsSeller, getDetailsSellerById }: { detailsSeller: ISellersList, getDetailsSellerById: (id_seller: number) => void }) => {
     return (
         <div className='w-full h-full bg-white p-2 gap-4 mt-4 rounded-xl'>
-            <div className='grid grid-cols-2 lg:grid-cols-2 gap-4'>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4'>
 
                 <div className='p-2 rounded-xl'>
                     <div className='gap-4 flex items-center'>
@@ -21,9 +21,9 @@ const DetailsSellerComponent = ({ detailsSeller, getDetailsSellerById }: { detai
                             <ModalComponents titleModal="Editar Avatar" titleButton="Editar Avatar" buttonVariant="ghost" chiledrenBody={<UploadWallpper sellerId={detailsSeller?.id?.toString() || '0'} nameFunction="upload-logo-sellers" />} />
                         </div>
                         <div className='flex flex-col gap-y-2'>
-                        <Heading as="h3"> {detailsSeller?.name_sellers}</Heading>
+                            <Heading as="h3"> {detailsSeller?.name_sellers}</Heading>
 
-                        
+
                             <Flex gap="3" align="center">
                                 <Link href={detailsSeller?.nicknames} target="_blank">
                                     {detailsSeller?.nicknames}
@@ -51,8 +51,8 @@ const DetailsSellerComponent = ({ detailsSeller, getDetailsSellerById }: { detai
 
                 </div>
                 <div className='flex justify-start items-center w-full '>
-               
-                    <DetailsSocialNetWorks idSeller={Number(detailsSeller?.id) || 0 } />
+
+                    <DetailsSocialNetWorks idSeller={Number(detailsSeller?.id) || 0} />
 
 
                 </div>

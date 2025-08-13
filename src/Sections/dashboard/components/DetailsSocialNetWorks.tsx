@@ -71,6 +71,32 @@ const DetailsSocialNetWorks = ({ idSeller }: { idSeller: number }) => {
                                 </li>
                             )}
 
+                         
+                            {socialNetworks[0].page_oficial && (
+                                <li className='flex items-center gap-2 w-full'>
+                                    <Avatar
+                                        size="3"
+                                        src=""
+                                        radius="full"
+                                        fallback="E"
+                                    />
+                                    <Box>
+                                        <Text as="div" size="2" weight="bold">
+                                            Pagina Oficial
+                                        </Text>
+                                        <Text as="div" size="2" color="gray">
+                                            {socialNetworks[0].page_oficial}
+                                        </Text>
+                                    </Box>
+                                </li>
+                            )}
+                        </ul>
+
+                    </Flex>
+
+                    <Flex className='flex flex-col lg:flex-row items-center justify-center gap-2 bg-white p-2 rounded-xl border-1 border-gray-200'>
+                        <ul className='flex flex-col gap-y-2 '>
+                            
                             {socialNetworks[0].instagram && (
                                 <li className='flex items-center gap-2 w-full'>
                                     <Avatar
@@ -110,31 +136,26 @@ const DetailsSocialNetWorks = ({ idSeller }: { idSeller: number }) => {
                         </ul>
 
                     </Flex>
-                    {socialNetworks[0].page_oficial && (
 
-
-                        <Flex className='flex flex-col items-center justify-center gap-2 w-full bg-white rounded-xl border-1 border-gray-200'>
-                            <Text as="div" size="2" weight="bold">
-                                Pagina Oficial:
-                            </Text>
-                            <div className="p-2">
-                                <Link href={socialNetworks[0].page_oficial} target="_blank">
-                                    {socialNetworks[0].page_oficial}
-                                </Link>
-                            </div>
-                        </Flex>
-                    )}
 
 
                     <Flex className='flex mx-auto justify-center items-center'>
-                        <ModalComponents titleModal="Editar redes sociales" titleButton="Editar redes sociales" buttonVariant="ghost" chiledrenBody={<div><FormAddSocialNetWorks socialNetworks={socialNetworks} idSeller={idSeller} /></div>} />
+                        <ModalComponents 
+                        titleModal="Editar redes sociales" 
+                        titleButton="Editar redes sociales" 
+                        buttonVariant="ghost" 
+                        chiledrenBody={<div><FormAddSocialNetWorks socialNetworks={socialNetworks} idSeller={idSeller} fetchSocialNetworks={fetchSocialNetworks} /></div>} />
                     </Flex>
                 </div>
 
             ) : (
                 <div className='w-full bg-white rounded-xl border-1 border-gray-200 p-12'>
                     <Text as="div" size="2" weight="bold">
-                        <ModalComponents titleModal="Configurar redes sociales" titleButton="Debes de configurar tus redes sociales" buttonVariant="ghost" chiledrenBody={<div><FormAddSocialNetWorks socialNetworks={socialNetworks} idSeller={idSeller} /></div>} />
+                        <ModalComponents 
+                        titleModal="Configurar redes sociales" 
+                        titleButton="Debes de configurar tus redes sociales" 
+                        buttonVariant="ghost" 
+                        chiledrenBody={<div><FormAddSocialNetWorks socialNetworks={socialNetworks} idSeller={idSeller} fetchSocialNetworks={fetchSocialNetworks} /></div>} />
                     </Text>
                 </div>
             )}

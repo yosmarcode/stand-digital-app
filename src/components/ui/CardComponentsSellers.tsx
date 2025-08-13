@@ -20,7 +20,7 @@ export function CardComponentsSellers({
     return (
         <div className="max-w-[300px] min-h-[300px] flex flex-col gap-2 bg-white rounded-xl border-2 border-gray-200 p-2 hover:cursor-pointer hover:scale-105 transition-all duration-300">
             <div className="w-full h-64">
-                <ImageComponents src={imageSrc} alt={title ?? 'image'} width={200} className="w-full h-full aspect-[1/1] object-cover rounded-xl" />
+                <ImageComponents src={imageSrc} alt={title ?? 'image'} width={300} className="w-full h-full object-cover rounded-xl" />
             </div>
             <div className="flex flex-col gap-2 pt-4 text-center">
                 <span className="font-bold text-lg text-black">{title.toLocaleUpperCase() ?? ''}</span>

@@ -2,21 +2,24 @@ import React from 'react'
 import { Box, Button, TextField } from '@radix-ui/themes'
 import { enqueueSnackbar } from 'notistack'
 import { webApiServices } from '@/services/webApiServices'
+import { validateEmail } from '@/helpers/ValidateEmail/validateEmail'
 
-const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: any[], idSeller: number }) => {
+const FormAddSocialNetWorks = ({ socialNetworks, idSeller, fetchSocialNetworks }: { socialNetworks: any[], idSeller: number, fetchSocialNetworks: (idSeller: number) => void }) => {
     const [formValue, setFormValue] = React.useState<{
         whatsapp: string,
         tiktok: string,
         instagram: string,
         facebook: string,
         page_oficial: string,
+        email_sellers: string
     }>({
         whatsapp: '',
         tiktok: '',
         instagram: '',
         facebook: '',
         page_oficial: '',
-    })
+        email_sellers: '',
+        })
     const [isError, setIsError] = React.useState(false)
     const [messageError, setMessageError] = React.useState('')
     const [isLoading, setIsLoading] = React.useState(false)
@@ -65,6 +68,13 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
             setIsLoading(false)
             return false;
         }
+        if (formValue.email_sellers.length > 0 && !validateEmail(formValue.email_sellers)) {
+            enqueueSnackbar('Formato de email es inválido', { variant: 'error' })
+            setIsError(true)
+            setMessageError('Todos los campos son obligatorios')
+            setIsLoading(false)
+            return false;
+        }
         return true;
     }
 
@@ -74,14 +84,16 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
         if (!validateForm(e)) return
         setIsLoading(true)
         setIsError(false)
-        const error = await webApiServices.SaveSocialNetworkServices(idSeller, formValue.whatsapp, formValue.tiktok, formValue.instagram, formValue.facebook, formValue.page_oficial)
-        if (error) {
-            enqueueSnackbar('Error al guardar', { variant: 'error' })
+        const error = await webApiServices.SaveSocialNetworkServices(idSeller, formValue.whatsapp, formValue.tiktok, formValue.instagram, formValue.facebook, formValue.page_oficial, formValue.email_sellers)
+        if (!error) {
+            enqueueSnackbar('Error al guardar social networks', { variant: 'error' })
             setIsLoading(false)
             return
         }
-        enqueueSnackbar('Guardado correctamente', { variant: 'success' })
+        enqueueSnackbar('Se ha guardado correctamente las redes sociales', { variant: 'success' })
         setIsLoading(false)
+        // refrescar la lista de redes sociales
+        fetchSocialNetworks(idSeller)
     }
 
     const handleUpdateSocialNetwork = async (e: React.FormEvent) => {
@@ -89,14 +101,16 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
         if (!validateForm(e)) return
         setIsLoading(true)
         setIsError(false)
-        const error = await webApiServices.updateSocialNetworkServices(socialNetworks[0]?.id, formValue.whatsapp, formValue.tiktok, formValue.instagram, formValue.facebook, formValue.page_oficial)
-        if (error) {
+        const error = await webApiServices.updateSocialNetworkServices(socialNetworks[0]?.id, formValue.whatsapp, formValue.tiktok, formValue.instagram, formValue.facebook, formValue.page_oficial, formValue.email_sellers)
+        if (!error) {
             enqueueSnackbar('Error al actualizar', { variant: 'error' })
             setIsLoading(false)
             return
         }
         enqueueSnackbar('Actualizado correctamente', { variant: 'success' })
         setIsLoading(false)
+        // refrescar la lista de redes sociales
+        fetchSocialNetworks(idSeller)
     }
 
     React.useEffect(() => {
@@ -108,13 +122,14 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
                 instagram: socialNetworks[0].instagram ?? '',
                 facebook: socialNetworks[0].facebook ?? '',
                 page_oficial: socialNetworks[0].page_oficial ?? '',
+                email_sellers: socialNetworks[0].email_sellers ?? '',
             })
         }
     }, [socialNetworks])
 
     return (
         <form className='flex flex-col gap-4'>
-            {JSON.stringify(formValue.page_oficial.includes('https://'))}
+ 
             <Box maxWidth="100%">
                 <TextField.Root
                     size="3"
@@ -148,7 +163,7 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
                     <p className='text-red-500 text-xs'>Instagram es obligatorio o instagram es inválido</p>
                 }
             </Box>
-            <Box maxWidth="100%">
+            {/* <Box maxWidth="100%">
                 <TextField.Root
                     size="3"
                     placeholder="@facebook"
@@ -157,6 +172,17 @@ const FormAddSocialNetWorks = ({ socialNetworks, idSeller }: { socialNetworks: a
                 />
                 {(isError && (formValue.facebook.length > 1)) &&
                     <p className='text-red-500 text-xs'>Facebook es obligatorio o facebook es inválido</p>
+                }
+            </Box> */}
+            <Box maxWidth="100%">
+                <TextField.Root
+                    size="3"
+                    placeholder="Correo Electronico"
+                    value={formValue.email_sellers}
+                    onChange={(e) => setFormValue({ ...formValue, email_sellers: e.target.value })}
+                />
+                {(isError && (formValue.email_sellers.length > 1 && !validateEmail(formValue.email_sellers))) &&
+                    <p className='text-red-500 text-xs'>Email es obligatorio o email es inválido</p>
                 }
             </Box>
             <Box maxWidth="100%">

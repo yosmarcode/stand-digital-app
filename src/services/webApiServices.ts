@@ -126,7 +126,7 @@ export const webApiServices = {
         const { data, error } = await supabase.from('social_networks').select('*').eq('active', true).eq('id_sellers', p_id_seller)
         return { data, error }
     },
-    SaveSocialNetworkServices: async (p_id_seller: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string) => {
+    SaveSocialNetworkServices: async (p_id_seller: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string, p_email_sellers: string) => {
         const { error } = await supabase.from('social_networks').insert({
             id_sellers: p_id_seller,
             whatsapp: p_whatsapp,
@@ -134,17 +134,19 @@ export const webApiServices = {
             instagram: p_instagram,
             facebook: p_facebook,
             page_oficial: p_page_oficial,
+            email_sellers: p_email_sellers,
             active: true
         })
         return { error }
     },
-    updateSocialNetworkServices: async (p_id: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string) => {
+    updateSocialNetworkServices: async (p_id: number, p_whatsapp: string, p_tiktok: string, p_instagram: string, p_facebook: string, p_page_oficial: string, p_email_sellers: string) => {
         const { error } = await supabase.from('social_networks').update({
             whatsapp: p_whatsapp,
             tiktok: p_tiktok,
             instagram: p_instagram,
             facebook: p_facebook,
             page_oficial: p_page_oficial,
+            email_sellers: p_email_sellers,
             active: true
         }).eq('id', p_id)
         return { error }

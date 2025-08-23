@@ -3,11 +3,13 @@ import { ImageComponents } from "../imageComponents/ImageComponents"
 import { StaticImageData } from "next/image";
 
 import BadgeComponents from "./Badge/BadgeComponents";
+import Link from "next/link";
 export function CardComponentsSellers({
     imageSrc,
     title,
     description,
     category,
+    nicknames
 }: {
     imageSrc: string | StaticImageData;
     title: string;
@@ -16,8 +18,13 @@ export function CardComponentsSellers({
         id: number;
         description: string;
     };
+    nicknames: string;
 }) {
     return (
+        <div>
+
+        <Link href={`/shop/${nicknames}`}>
+   
         <div className="max-w-[300px] min-h-[300px] flex flex-col gap-2 bg-white rounded-xl border-2 border-gray-200 p-2 hover:cursor-pointer hover:scale-105 transition-all duration-300">
             <div className="w-full h-64">
                 <ImageComponents src={imageSrc} alt={title ?? 'image'} width={300} className="w-full h-full object-cover rounded-xl" />
@@ -29,5 +36,7 @@ export function CardComponentsSellers({
 
             </div>
         </div>
+        </Link>
+    </div>
     )
 }

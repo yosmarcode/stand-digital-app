@@ -92,8 +92,8 @@ export const webApiServices = {
     },
 
     getDetailsSellerByNickNameServices: async (p_nickname: string) => {
-        const { data, error } = await supabase.rpc('getDetailsSellerByNickName', {
-            p_nickname
+        const { data, error } = await supabase.rpc('getdetailssellerbynickname', {
+            p_nick_name: p_nickname
         })
         return { data, error }
 

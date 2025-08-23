@@ -35,6 +35,7 @@ export function SellerAllComponents() {
                         {dataSeller?.map((seller: ISellersList) => (
                             <CardComponentsSellers
                                 key={seller.id}
+                                nicknames={seller.nicknames ?? ''}
                                 imageSrc={seller.logo_sellers ? process.env.NEXT_PUBLIC_SUPABASE_URL + seller.logo_sellers : ImagDefault.src}
                                 title={seller.name_sellers} description={seller.descriptions}
                                 category={{ id: Number(seller.idcategory), description: seller.namecategory }} />
